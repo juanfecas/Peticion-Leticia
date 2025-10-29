@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tarjeta para la tía</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #d0f0e9, #fef9f3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  .card {
+    width: 320px;
+    height: 220px;
+    perspective: 1000px;
+    cursor: pointer;
+    position: relative;
+  }
+  .inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .flipped {
+    transform: rotateY(180deg);
+  }
+  .side {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    backface-visibility: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #2a5d4e;
+  }
+  .front {
+    background-color: #bff1d3; /* verde menta claro */
+  }
+  .back {
+    background-color: #f7f1e1; /* crema */
+    transform: rotateY(180deg);
+    position: relative;
+    overflow: visible;
+  }
+  .bunny-container {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 15px;
+  }
+  .bunny {
+    width: 60px;
+    height: 90px;
+    animation: hop 1.5s ease-in-out infinite;
+    transform-origin: bottom center;
+  }
+  .bunny:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+  @keyframes hop {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+  /* Estrellitas y fuegos artificiales */
+  .sparkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle at center, #fffdd0, #bbf7d0);
+    border-radius: 50%;
+    opacity: 0;
+    filter: drop-shadow(0 0 5px #fff9c4);
+    animation: sparkleFall 3s ease-out forwards;
+    mix-blend-mode: screen;
+  }
+  @keyframes sparkleFall {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(160px) scale(0.3);
+    }
+  }
+  .firework {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle at center, #fff7b6, #f2c94c);
+    border-radius: 50%;
+    opacity: 0;
+    animation: fireworkBurst 1s ease-out forwards;
+  }
+  @keyframes fireworkBurst {
+    0% {
+      opacity: 1;
+      transform: scale(0);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.8);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
+  p {
+    margin: 8px 0;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+  .signature {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 15px;
+  }
+</style>
+</head>
+<body>
+  <div class="card" id="card" aria-label="Tarjeta para la tía">
+    <div class="inner" id="inner">
+      <div class="side front" aria-label="Frente de la tarjeta">
+        <div class="bunny-container" aria-hidden="true">
+          <!-- Conejitas cuerpo completo estilo simple, claras, femeninas -->
+          <svg class="bunny" viewBox="0 0 64 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="img" aria-label="Conejita">
+            <circle cx="32" cy="20" r="15" fill="#f9d8d6" />
+            <ellipse cx="32" cy="80" rx="28" ry="42" fill="#c1e7d3" />
+            <ellipse cx="20" cy="40" rx="6" ry="15" fill="#f9d8d6" />
+            <ellipse cx="44" cy="40" rx="6" ry="15" fill="#f9d8d6" />
+            <circle cx="24" cy="15" r="5" fill="#5a3a39" />
+            <circle cx="40" cy="15" r="5" fill="#5a3a39" />
+            <ellipse cx="32" cy="40" rx="14" ry="10" fill="#fce9e7" />
+          </svg>
+          <svg class="bunny" viewBox="0 0 64 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="img" aria-label="Conejita">
+            <circle cx="32" cy="20" r="15" fill="#f9d8d6" />
+            <ellipse cx="32" cy="80" rx="28" ry="42" fill="#c1e7d3" />
+            <ellipse cx="20" cy="40" rx="6" ry="15" fill="#f9d8d6" />
+            <ellipse cx="44" cy="40" rx="6" ry="15" fill="#f9d8d6" />
+            <circle cx="24" cy="15" r="5" fill="#5a3a39" />
+            <circle cx="40" cy="15" r="5" fill="#5a3a39" />
+            <ellipse cx="32" cy="40" rx="14" ry="10" fill="#fce9e7" />
+          </svg>
+        </div>
+        <p>Tía, ¿te puedo hacer una pregunta?</p>
+      </div>
+      <div class="side back" aria-label="Reverso de la tarjeta">
+        <p>¿Quieres ser mi madrina?</p>
+        <p class="signature">Con cariño, Leticia</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const card = document.getElementById('card');
+  const inner = document.getElementById('inner');
+
+  card.addEventListener('click', () => {
+    const flipped = inner.classList.toggle('flipped');
+    if (flipped) {
+      createSparklesAndFireworks();
+    }
+  });
+
+  function createSparklesAndFireworks() {
+    // Crear estrellitas cayendo
+    for (let i = 0; i < 30; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = (Math.random() * (card.offsetWidth - 20) + card.offsetLeft + 10) + 'px';
+      sparkle.style.top = (card.offsetTop + 10) + 'px';
+      sparkle.style.animationDelay = (Math.random() * 1.5) + 's';
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 3500);
+    }
+
+    // Crear efectos de fuegos artificiales
+    for (let i = 0; i < 12; i++) {
+      const firework = document.createElement('div');
+      firework.className = 'firework';
+      firework.style.left = (Math.random() * (card.offsetWidth - 20) + card.offsetLeft + 10) + 'px';
+      firework.style.top = (card.offsetTop + 40 + Math.random() * 60) + 'px';
+      firework.style.animationDelay = (1 + Math.random() * 1.5) + 's';
+      document.body.appendChild(firework);
+      setTimeout(() => firework.remove(), 2500);
+    }
+  }
+</script>
+</body>
+</html>
